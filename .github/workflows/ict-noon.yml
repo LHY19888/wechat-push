@@ -1,0 +1,23 @@
+name: ICT午学-项目全流程 (12:30)
+
+on:
+  schedule:
+    # UTC 04:30 = 北京时间 12:30
+    - cron: '30 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 推送ICT午学
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: python scripts/ict_push.py noon
