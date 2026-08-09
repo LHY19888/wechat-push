@@ -1,0 +1,23 @@
+name: 行业资讯-早报 (9:30)
+
+on:
+  schedule:
+    # UTC 01:30 = 北京时间 09:30
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 推送行业早报
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: python scripts/news.py 早报
