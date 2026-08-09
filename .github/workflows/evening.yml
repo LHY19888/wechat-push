@@ -1,0 +1,38 @@
+name: 晚间推送-行业晚报+ICT晚课 (17:00)
+
+on:
+  schedule:
+    # UTC 09:00 = 北京时间 17:00
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  push-news:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 推送行业晚报
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: python scripts/news.py 晚报
+
+  push-ict:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 推送ICT晚课
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: python scripts/ict_push.py evening
