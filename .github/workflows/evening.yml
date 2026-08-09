@@ -19,7 +19,7 @@ jobs:
 
       - name: 推送行业晚报
         env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          WEBHOOK_URL: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=ed942ad7-11da-4de4-86c5-32bb0cb06b01
         run: python scripts/news.py 晚报
 
   push-ict:
@@ -34,5 +34,5 @@ jobs:
 
       - name: 推送ICT晚课
         env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          WEBHOOK_URL: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=ed942ad7-11da-4de4-86c5-32bb0cb06b01
         run: python scripts/ict_push.py evening
