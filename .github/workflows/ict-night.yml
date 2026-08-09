@@ -1,0 +1,23 @@
+name: ICT夜读-专业名词 (23:30)
+
+on:
+  schedule:
+    # UTC 15:30 = 北京时间 23:30
+    - cron: '30 15 * * *'
+  workflow_dispatch:
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 推送ICT夜读
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: python scripts/ict_push.py night
